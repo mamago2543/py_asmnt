@@ -1,16 +1,22 @@
-# This is a sample Python script.
+from helpers import csv_files, arrays, features
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    #Читаем файл
+    arr = csv_files.read_data_csv()
+    # Видим, что в некоторых местах произошёл разрыв строки - исправляем
+    arrays.unite_gap(arr)
+    #Надо сделать функцию на проврку корректности введённых данных?
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    h = arr.pop(0).split(',')
+    arrays.decode_str(h, arr)
+    result_row = [];
+    result_row.append(features.tot_claim_cnt_l180d(arr)) #задание 1
+    result_row.append(features.disb_bank_loan_wo_tbc(arr))  # задание 2
+    result_row.append(features.day_sinlastloan(arr))  # задание 3
+
+    csv_files.write_data_csv(result_row)
+
+
+
+
+
